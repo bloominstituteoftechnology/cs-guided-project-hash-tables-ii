@@ -43,6 +43,8 @@ Explanation:
 Note that 'B' and 'b' are treated as two different characters.
 ```
 """
+
+
 def frequency_sort(s: str) -> str:
     """
     Inputs:
@@ -50,7 +52,30 @@ def frequency_sort(s: str) -> str:
 
     Output:
     str
-    """
-    # Your code here
 
-    
+    1 - Init a hash table for counts
+    2 - Sort by the counts in descending order
+    3 - We need to reconstruct the output string from the frequency of each letter
+    """
+    letter_counts = {}
+
+    for letter in s:
+        if letter in letter_counts:
+            letter_counts[letter] += 1
+        else:
+            letter_counts[letter] = 1
+
+    res = sorted(letter_counts.items(), key=lambda kv: (-kv[1]))
+
+    # iterate through `res` & append each letter to a list `count` times
+    # alt:
+    # word = [letter * count for letter, count in res]
+    word = []
+    for letter, count in res:
+        word.append(letter * count)
+
+    # now that the `word` list contains all the necessary characters, join them into a string
+    return ''.join(word)
+
+
+print(frequency_sort('Bbcc'))
